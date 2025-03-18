@@ -10,13 +10,13 @@ using namespace std;
 
 class MST // Minimum Spanning Tree
 {
-    string city[10];
     int min, v, e, u;
     int adjMatrix[10][10];
     bool visited[10];
     int key[10], parent[10];
-
-public:
+    
+    public:
+    string city[10];
     void create();
     void edges();
     void displayByPrimsAlgorithm();
@@ -32,10 +32,11 @@ void MST::create()
         cout << "City " << i + 1 << " : ";
         cin >> city[i];
     }
+    edges();
 }
 
 void MST::edges(){
-    cout << "Enter the number of edges: ";
+    cout << "\nEnter the number of edges: ";
     cin >> e;
     for (int i = 0; i < v; i++){
         for (int j = 0; j < v; j++){
@@ -43,9 +44,8 @@ void MST::edges(){
                 adjMatrix[i][j] = 0;
             }
             else{
-                cout << "\nEnter the fuel for " << city[i] << " to " << city[j] << " : ";
+                cout << "Enter the fuel for " << city[i] << " to " << city[j] << " : ";
                 cin >> adjMatrix[i][j];
-                // adjMatrix[j][i] = adjMatrix[i][j];
             }
         }
     }
@@ -76,6 +76,15 @@ void MST::displayByPrimsAlgorithm(){
             }
         }
     }
+    int totalCost = 0;
+    for (int i = 1; i < v; i++){
+        totalCost += adjMatrix[parent[i]][i];
+    }
+    cout << "\nThe resultant locations are: " << endl;
+    for (int i = 1; i < v; i++){
+        cout << city[parent[i]] << " -> " << city[i] << " with fuel cost: " << adjMatrix[parent[i]][i] << endl;
+    }
+    cout << "\nThe total fuel cost is: " << totalCost << endl;
 }
 
 int main()
@@ -84,7 +93,7 @@ int main()
     MST m;
     do
     {
-        cout << "\n1. Accept\n2. Add Edges\n3. Display\n4. Exit\n";
+        cout << "\n1. Accept Cities\n2. Add Edges\n3. Display\n4. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
         switch (choice)
@@ -93,10 +102,20 @@ int main()
             m.create();
             break;
         case 2:
+        if (m.city[0] == "")
+        {
+            cout << "Please enter the cities first" << endl;
+        }else{
             m.edges();
+        }
             break;
         case 3:
-            m.displayByPrimsAlgorithm();
+            if (m.city[0] == "")
+            {
+                cout << "Please enter the cities first" << endl;
+            }else{
+                m.displayByPrimsAlgorithm();
+            }
             break;
         case 4:
             cout << "Exiting..." << endl;

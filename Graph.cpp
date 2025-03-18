@@ -87,7 +87,7 @@ void Graph::acceptByAdjList()
     cout << "Enter the number of direct flights (edges): ";
     cin >> edges;
 
-    for (int i = 0; i < edges; i++)
+    for (int i = 0; i < 2*edges; i++)
     {
         string source, dest;
         int fuelCost;
