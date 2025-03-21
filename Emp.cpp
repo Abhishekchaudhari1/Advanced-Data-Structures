@@ -15,8 +15,8 @@ public:
     void displayLeafNode(Student *root);
     void displayInternalNode(Student *root);
     int displayTreeHeight(Student *root);
-    void Preorder(Student *root);
-    void Postorder(Student *root);
+    void displayByPreOrder(Student *root);
+    void displayByPostOrder(Student *root);
 };
 
 Student *root, *nextn, *st[100];
@@ -100,21 +100,21 @@ void Student::insert(Student *root, Student *next)
 
 void Student::displayByInOrder(Student *root)
 {
+    cout << "\nStudent_Id\tStudent_Name\tStudent_Address";
     if (root == NULL)
     {
         return;
     }
     else
     {
-        cout << "\nStudent_Id\tStudent_Name\tStudent_Address";
         displayByInOrder(root->leftChild);
-        cout << "\n"
-        << root->roll_no << "\t" << root->name << "\t\t" << root->add;
+        cout << "\n" << root->roll_no << "\t" << root->name << "\t\t" << root->add;
         displayByInOrder(root->rightChild);
     }
     cout << "\n"
          << endl;
 }
+
 // cout << "\n"
 //      << root->roll_no << "\t" << root->name << "\t\t" << root->add;
 // displayByInOrder(root->leftChild);
@@ -129,7 +129,7 @@ void Student::displayByInOrder(Student *root)
 //         }
 //     }
 
-void Student::Preorder(Student *root)
+void Student::displayByPreOrder(Student *root)
 {
     if (root == NULL)
     {
@@ -139,12 +139,12 @@ void Student::Preorder(Student *root)
     {
         cout << "\n"
              << root->roll_no << "\t" << root->name << "\t\t" << root->add;
-        displayByInOrder(root->leftChild);
-        displayByInOrder(root->rightChild);
+        displayByPreOrder(root->leftChild);
+        displayByPreOrder(root->rightChild);
     }
 }
 
-void Student::Postorder(Student *root)
+void Student::displayByPostOrder(Student *root)
 {
     if (root == NULL)
     {
@@ -152,8 +152,8 @@ void Student::Postorder(Student *root)
     }
     else
     {
-        displayByInOrder(root->leftChild);
-        displayByInOrder(root->rightChild);
+        displayByPostOrder(root->leftChild);
+        displayByPostOrder(root->rightChild);
         cout << "\n"
              << root->roll_no << "\t" << root->name << "\t\t" << root->add;
     }
