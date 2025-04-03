@@ -24,7 +24,6 @@ int top = -1;
 
 void Student::create()
 {
-    int ch;
     root = new Student;
     cout << "Enter Student roll no : ";
     cin >> root->roll_no;
@@ -33,6 +32,8 @@ void Student::create()
     cout << "Enter Student Address : ";
     cin >> root->add;
     root->leftChild = root->rightChild = NULL;
+
+    int ch;
     do
     {
         cout << "Do you want to add another Student?(1/0) : ";
@@ -51,6 +52,7 @@ void Student::create()
         }
         else
         {
+            cout << "Exiting...";
             break;
         }
     } while (ch != 0);
@@ -75,7 +77,7 @@ void Student::insert(Student *root, Student *next)
             }
             else
             {
-                root = root->rightChild;
+                insert(root->leftChild, next);
             }
         }
         else if (chr == 'R' || chr == 'r')
@@ -84,11 +86,12 @@ void Student::insert(Student *root, Student *next)
             {
                 root->rightChild = next;
                 cout << "Student info added successfully!\n";
+                inserted = true;
                 return;
             }
             else
             {
-                root = root->rightChild;
+                insert(root->rightChild, next);
             }
         }
         else
@@ -108,26 +111,13 @@ void Student::displayByInOrder(Student *root)
     else
     {
         displayByInOrder(root->leftChild);
-        cout << "\n" << root->roll_no << "\t" << root->name << "\t\t" << root->add;
+        cout << "\n"
+             << root->roll_no << "\t" << root->name << "\t\t" << root->add;
         displayByInOrder(root->rightChild);
     }
     cout << "\n"
          << endl;
 }
-
-// cout << "\n"
-//      << root->roll_no << "\t" << root->name << "\t\t" << root->add;
-// displayByInOrder(root->leftChild);
-// displayByInOrder(root->rightChild);
-//             break;
-//         case 3:
-//             displayByInOrder(root->leftChild);
-//             displayByInOrder(root->rightChild);
-//             cout << "\n"
-//                  << root->roll_no << "\t" << root->name << "\t\t" << root->add;
-//             break;
-//         }
-//     }
 
 void Student::displayByPreOrder(Student *root)
 {
